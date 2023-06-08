@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component,OnInit,AfterViewChecked } from '@angular/core';
+import { SaveUser } from './models/saveUser';
+import { AuthService } from './modules/auth/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'PlannerScheduler_front';
+  userInfo?: SaveUser;
+  title = 'PlannerScheduler';
+  currentRoute!: string;
+
+  constructor(private auth: AuthService,private route: ActivatedRoute,private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.auth.userProfile.subscribe((data) => {
+      this.userInfo = data;
+    });
+  }
+
+  ngDoCheck(){
+    this.currentRoute = this.router.url;
+  }
 }

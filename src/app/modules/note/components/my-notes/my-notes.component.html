@@ -1,0 +1,57 @@
+<div class="container">
+    <h1>Мої нотатки</h1>
+
+<p>
+    <button class="btn btn-primary" routerLink="new">Create New</button>
+</p>
+<table class="table">
+    <tbody>
+        <div *ngIf="notes.length != 0; else anotherBlock">
+          <tr><th>Назва</th><th>Предмет</th><th>День</th><th>Тип</th><th>Зміст</th><th>Чи завершено</th><th colspan="2"></th></tr>
+            <tr *ngFor="let note of notes;index as ind">
+                <td>
+                   {{note.title}} 
+                </td>
+                <td>
+                   {{note.lesson.subject.name}}
+                </td>
+                <td>
+                  {{weekdays[note.lesson.dayOfWeek-1]}}
+               </td>
+               <td>
+                {{note.lesson.typeOfLesson}}
+               </td>
+               <td>
+                {{toString(note)}}
+               </td>
+               <td>
+                 {{isFinished(note)}}
+               </td>
+                <td>
+                    <button class="btn btn-primary" [routerLink]="['edit/'+note.id]">Edit</button> 
+                </td>
+                  <td> 
+                    <button class="btn btn-primary" (click)="openConfirmDeleteModal(note,ind)">Delete</button>
+    
+                        <ng-template #confirmDeleteModal let-modal>
+                          <div class="modal-header">
+                            <h4 class="modal-title">Видалення</h4>
+                          </div>
+                          <div class="modal-body">
+                            Ви дійсно хочете видалити цю нотатку?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="cancelModal()">Відміна</button>
+                            <button type="submit" class="btn btn-danger" (click)="onDeleteConfirmed()">Видалити</button>
+                          </div>
+                        </ng-template>
+                    
+                </td>
+            </tr>
+        </div>
+        <ng-template #anotherBlock>
+            <tr><td>У вас немає нотаток</td></tr> 
+        </ng-template>
+    </tbody>
+</table>
+</div>

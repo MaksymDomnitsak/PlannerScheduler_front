@@ -1,0 +1,25 @@
+<div class="container">
+    <h4>Змінити нотатку</h4>
+<form>
+    <div class="form-group">
+      <label for="title">Назва:</label>
+      <input type="text" class="form-control" id="title" [(ngModel)]="title" placeholder="Enter title" required [ngModelOptions]="{standalone: true}">
+    </div>
+    <div class="form-group">
+      <label for="lesson">Об'єкт прив'язки:</label>
+      <select class="form-control" id="lesson" [(ngModel)]="lessonId" [ngModelOptions]="{standalone: true}" disabled>
+        <option *ngFor="let lesson of scheduleList" [ngValue]="lesson.id">{{readLesson(lesson)}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="body">Опис:</label>
+      <textarea class="form-control" id="body" rows="5" [(ngModel)]="body" required [ngModelOptions]="{standalone: true}"></textarea>
+    </div>
+    <div class="form-check form-group">
+        <label for="finished">Чи завершено</label>
+        <input type="checkbox" class="form-check-input" id="finished" [(ngModel)]="isFinished" required [ngModelOptions]="{standalone: true}">
+      </div>
+    <button type="submit" class="btn btn-primary"  (click)="updateDB(); returnToList();">Записати</button>
+    <button class="btn btn-primary" routerLink="../..">Назад до списку</button>
+  </form>
+</div>

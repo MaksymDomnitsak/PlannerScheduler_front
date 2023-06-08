@@ -1,0 +1,41 @@
+<div *ngIf="readUserRole() != '' && (readUserRole() == 'STUDENT' || readUserRole() == 'TEACHER');else elseBlockAuth">
+<button class="btn btn-primary" (click)="exportToPDF()">Експорт в PDF</button>
+<button class="btn btn-primary" (click)="exportToPNG()">Експорт в PNG</button>
+<h1 class="table-caption">Мій розклад</h1>
+<div class="table-container">
+  <table id="schedule-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>1/2 тиждень</th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let num of utils.getRange(1, 10);">
+        <td class="weekday" rowspan="2" *ngIf="num%2==1"><span>{{ weekdays[utils.floor(num/2)] }}</span></td>
+        <td class="weekorder" *ngIf="num%2==1; else elseBlock">{{ 1 }}</td>
+          <ng-template #elseBlock><td class="weekorder">{{ 2 }}</td></ng-template>
+        <td *ngFor="let it of utils.getRange(1, 5)">
+          <div *ngIf="readUserRole() == 'STUDENT';else elseBlockOutput">
+            {{ checkAndOutput(utils.ceil(num/2),num%2==1 ? false : true,it,"Group")}}{{ schdlConverter.lesInfo }}
+          </div>
+          <ng-template #elseBlockOutput>
+            <div>
+            {{ checkAndOutput(utils.ceil(num/2),num%2==1 ? false : true,it,"Teacher")}}{{ schdlConverter.lesInfo }}
+          </div>
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<ng-template #elseBlockAuth>
+  <app-all-schedule></app-all-schedule>
+</ng-template>

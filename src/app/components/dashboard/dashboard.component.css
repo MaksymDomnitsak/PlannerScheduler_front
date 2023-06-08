@@ -1,0 +1,66 @@
+table{
+    margin-left: auto;
+    margin-right:auto;
+    margin-bottom:100px;
+    border:2px solid black;
+}
+.weekday{
+    height: 100px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.weekorder {
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+td,th{
+    border:2px solid black;
+    text-align: center;
+    vertical-align: middle;
+}
+td{
+    margin:30px;
+    padding: 5px;
+    width: 100px;
+    height: 100px;
+    max-width: 200px;
+    max-height: 250px;
+}
+th{
+    height: 20px;
+    min-width: 50px;
+}
+td span{
+    display: inline-block;
+    transform-origin: center;
+    white-space: nowrap;
+}
+.lessonOrder{
+    width:20px;
+}
+.container {
+    max-width: 1200px; 
+    margin: 100px auto; 
+  }
+button{
+    margin: 1%;
+    margin-top: 3%;
+}
+caption {
+    padding: 10px;
+    caption-side: top;
+    text-align: center;
+    font-size: 24px;
+}
+.table-container {
+    height: 750px; 
+    overflow-y: auto;
+    margin: 50px auto; 
+  }
+  .table-caption {
+    position:relative;
+    text-align: center;
+    font-weight: bold;
+    margin: 10px auto;
+  }

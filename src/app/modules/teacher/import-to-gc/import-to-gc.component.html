@@ -1,0 +1,58 @@
+<div class="container" >
+  <h1>Імпорт події</h1>
+<form [formGroup]="eventForm" >
+    <div class="form-group">
+      <label for="summary">Заголовок:</label>
+      <input type="text" id="summary" class="form-control" formControlName="summary" (click)="summaryCheck()">
+    </div>
+  
+    <div class="form-group">
+      <label for="location">Місце проведення(опціонально):</label>
+      <input type="text" id="location" class="form-control" formControlName="location">
+    </div>
+  
+    <div class="form-group">
+      <label for="description">Опис:</label>
+      <textarea id="description" class="form-control" formControlName="description"></textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="startDate">Дата початку:</label>
+      <input type="date" id="startDate" class="form-control" formControlName="startDate" required>
+    </div>
+  
+    <div class="form-row">
+      <label for="frequency">Частота:</label>
+      <select id="frequency" class="form-control single" formControlName="frequency" required>
+        <option value="weekly" selected>Кожен тиждень</option>
+        <option value="two-weeks">Раз на два тижні</option>
+      </select>
+      <label for="repeats">Число повторень:</label>
+      <select id="repeats" class="form-control single" formControlName="repeats" required>
+        <option [value]="1" selected>1</option>
+        <option *ngFor="let i of repeatOptions" [value]="i">{{ i }}</option>
+      </select>
+      <label for="conference">Conference:</label>
+      <select id="conference" class="form-control single" formControlName="conference">
+        <option value="none">None</option>
+        <option value="hangouts">Hangouts</option>
+        <option value="meet">Meet</option>
+      </select>
+    </div>
+  
+  
+    <div class="form-row">
+      <label for="groups">Групи:</label>
+      <select id="groups" class="form-control multi" formControlName="groups" multiple>
+        <option *ngFor="let group of groupOptions" [value]="group.id">{{ group.name }}</option>
+      </select>
+      <label for="attendees">Запрошені:</label>
+      <select id="attendees" class="form-control multi" formControlName="attendees" multiple>
+        <option *ngFor="let attendee of attendeeOptions" [value]="attendee.email">{{ attendee.firstName+" "+attendee.lastName+" "+attendee.patronymicName }}</option>
+      </select>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid" (click)="importEvent()">Імпортувати</button>
+    <button class="btn btn-primary" routerLink="../..">Назад до списку</button>
+  </form>
+</div>

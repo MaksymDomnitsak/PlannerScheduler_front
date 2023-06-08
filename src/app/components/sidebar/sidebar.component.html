@@ -1,0 +1,32 @@
+<div class="sidebar" [ngClass]="{'sidebar-open': isSidebarOpen}" (mouseenter)="openSidebar()" (mouseleave)="closeSidebar()">
+    <button class="navbar-toggler"
+            width="48"
+              height="48">
+  </button>
+    <ul class="navbar-nav flex-column">
+      <li class="nav-item">
+        <button class="btn nav-link" routerLink="/dashboard"> Домашня сторінка </button>
+      </li>
+      <li class="nav-item">
+        <button class="btn nav-link" routerLink="/events"> Розклад </button>
+      </li>
+      <div *ngIf="userInfo?.role == 'STUDENT'">
+      <li class="nav-item">
+        <button class="btn nav-link" routerLink="/note"> Нотатки </button>
+      </li>
+      <li class="nav-item" hidden>
+        <button class="btn nav-link" > Особливі події </button>
+      </li>
+      </div>
+      <li class="nav-item" *ngIf="userInfo?.role == 'TEACHER'">
+        <button class="btn nav-link" routerLink="/teachersPage"> Керування подіями та нотатками </button>
+      </li>
+      <li class="nav-item">
+        <button *ngIf="(userInfo?.userId ?? 0) === 0; else elseBlock" class="btn nav-link" routerLink="/auth/login"> Login </button>
+        <ng-template #elseBlock><button class="btn nav-link" (click)="logOut()"> Logout </button></ng-template>
+      </li>
+      <li *ngIf='userInfo?.role == "ADMIN"' class="nav-item">
+        <button class="btn nav-link" routerLink="/admin"> Admin page </button>
+      </li>
+    </ul>
+  </div>

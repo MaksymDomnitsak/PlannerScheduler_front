@@ -1,0 +1,83 @@
+<div class="container">
+    <form [formGroup]="findSchedule">
+      <div class="row align-items-center">
+    <div class="col-md-4">
+      <select id="teacherSelect" class="form-control" formControlName="teacherSelect" (change)="getScheduleByTeacherOrGroup()">
+        <option value="" selected>Виберіть викладача...</option>
+        <option *ngFor="let teacher of teacherList" [value]="teacher.id">{{readTeacherName(teacher)}}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <select id="groupSelect" class="form-control" formControlName="groupSelect" (change)="getScheduleByTeacherOrGroup()">
+        <option value="" selected>Виберіть групу...</option>
+        <option *ngFor="let group of groupList" [value]="group.name">{{group.name}}</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-primary" (click)="getAllSchedule()">Весь розклад</button>
+    </div>
+  </div>
+    </form>
+</div>
+<div *ngIf="allSchedule == false && (findSchedule.get('groupSelect')!.value != '' || findSchedule.get('teacherSelect')!.value != ''); else elseBlock2">
+  <div class="container">
+    <table id="schedule-table">
+      <caption *ngIf="findSchedule.get('groupSelect')!.value != '';else elseBlockCaption"><h1>Розклад групи {{findSchedule.get('groupSelect')!.value}}</h1></caption>
+      <ng-template #elseBlockCaption><caption><h1>Розклад {{teacherTitle}}</h1></caption></ng-template>
+      <thead>
+        <tr>
+          <th></th>
+          <th>1/2 тиждень</th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let num of utils.getRange(1, 10);">
+          <td class="weekday" rowspan="2" *ngIf="num%2==1"><span>{{ weekdays[utils.floor(num/2)] }}</span></td>
+          <td class="weekorder" *ngIf="num%2==1; else elseBlock">{{ 1 }}</td>
+            <ng-template #elseBlock><td class="weekorder">{{ 2 }}</td></ng-template>
+          <td *ngFor="let it of utils.getRange(1, 5)">
+            <div *ngIf="findSchedule.get('groupSelect')!.value != '';else elseBlockOutput">
+              {{ checkAndOutput(utils.ceil(num/2),num%2==1 ? false : true,it,"Group")}}{{ schdlConverter.lesInfo }}
+            </div>
+            <ng-template #elseBlockOutput>
+              <div>
+              {{ checkAndOutput(utils.ceil(num/2),num%2==1 ? false : true,it,"Teacher")}}{{ schdlConverter.lesInfo }}
+            </div>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+  </div>
+</div>
+<ng-template #elseBlock2>
+  <h1 class="table-caption">Загальний розклад</h1>
+  <div class="table-container">
+    <table id="schedule-table">
+      <thead>
+        <tr>
+          <th colspan="2"></th>
+          <th >1/2 тиждень</th>
+          <th *ngFor="let group of groupList">{{group.name}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let num of utils.getRange(1, 50);">
+          <td class="weekday" rowspan="10" *ngIf="num%10==1"><span>{{ weekdays[utils.floor(num/10)] }}</span></td>
+          <td rowspan="2" *ngIf="num%2==1"><div class="lessonOrder">{{ schdlConverter.chooseLessonOrder(num) }}</div></td>
+          <td class="weekorder" *ngIf="num%2==1; else elseBlock">{{ 1 }}</td>
+            <ng-template #elseBlock><td class="weekorder">{{ 2 }}</td></ng-template>
+          <td *ngFor="let it of utils.getRange(1, groupList.length)">
+              {{ checkFacultySchedule(utils.ceil(num/10),num%2==1 ? false : true,schdlConverter.chooseLessonOrder(num),it)}}{{ schdlConverter.lesInfo }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</ng-template>
