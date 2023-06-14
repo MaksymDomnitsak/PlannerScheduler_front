@@ -14,4 +14,9 @@ export class GroupService {
     const url = "/api/group";
     return this.http.get<Group[]>(url);
   }
+
+  getGroupsByTeacherId(teacherId: number) {
+    const url = "/api/group?teacherId="+teacherId;
+    return this.http.get<Group[]>(url);
+  }
 }

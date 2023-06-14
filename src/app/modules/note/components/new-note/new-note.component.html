@@ -3,17 +3,17 @@
 <form>
     <div class="form-group">
       <label for="title">Назва</label>
-      <input type="text" class="form-control" id="title" [(ngModel)]="title" placeholder="Enter title" required [ngModelOptions]="{standalone: true}">
+      <input type="text" class="form-control" id="title" [(ngModel)]="title" placeholder="Enter title" [ngModelOptions]="{standalone: true}">
     </div>
     <div class="form-group">
       <label for="lesson">Об'єкт прив'язки</label>
-      <select class="form-control" id="lesson" [(ngModel)]="lessonId" size="5" required [ngModelOptions]="{standalone: true}">
+      <select class="form-control" id="lesson" [(ngModel)]="lessonId" size="5" [ngModelOptions]="{standalone: true}">
         <option *ngFor="let lesson of scheduleList" [ngValue]="lesson.id">{{readLesson(lesson)}}</option>
       </select>
     </div>
     <div class="form-group">
       <label for="body">Опис</label>
-      <textarea class="form-control" id="body" rows="5" [(ngModel)]="body" required [ngModelOptions]="{standalone: true}"></textarea>
+      <textarea class="form-control" id="body" rows="5" [(ngModel)]="body" [ngModelOptions]="{standalone: true}"></textarea>
     </div>
     <button type="submit" class="btn btn-primary" (click)="writeToDB(); returnToList();">Записати</button>
     <button class="btn btn-primary" routerLink="..">Назад до списку</button>

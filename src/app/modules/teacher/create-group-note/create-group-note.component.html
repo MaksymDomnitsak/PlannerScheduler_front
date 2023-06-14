@@ -1,1 +1,48 @@
-<p>create-group-note works!</p>
+<div class="container">
+  <h4>Множинне створення нотатки</h4>
+<form  [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Назва</label>
+      <input type="text" class="form-control" id="title" formControlName="title" required>
+      <div *ngIf="noteForm.get('title')!.invalid && noteForm.get('title')!.touched" class="text-danger">
+        Заповніть назву.
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="schedule">Подія</label>
+      <select class="form-control" id="schedule" formControlName="schedule" required>
+        <option value="">Виберіть предмет</option>
+        <option *ngFor="let event of schedule" [value]="event.id">{{ readLesson(event) }}</option>
+      </select>
+      <div *ngIf="noteForm.get('schedule')!.invalid && noteForm.get('schedule')!.touched" class="text-danger">
+        Виберіть предмет.
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="body">Вміст</label>
+      <textarea class="form-control" id="body" formControlName="body" rows="4" required></textarea>
+      <div *ngIf="noteForm.get('body')!.invalid && noteForm.get('body')!.touched" class="text-danger">
+        Заповніть вміст нотатки.
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="group">Group</label>
+      <select multiple class="form-control" id="group" formControlName="group">
+        <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="students">Students</label>
+      <select multiple class="form-control" id="students" formControlName="students">
+        <option *ngFor="let student of students" [value]="student.id">{{ student.firstName+" "+student.lastName }}</option>
+      </select>
+    </div>
+    
+    <button class="btn btn-primary" routerLink="..">Назад до списку</button>
+    <button type="submit" class="btn btn-primary">Create Note</button>
+  </form>
+</div>

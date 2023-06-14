@@ -30,11 +30,15 @@ export class NewNoteComponent {
     }
     
     writeToDB(){
-      this.noteService.writeNote(this.title,this.body,this.lessonId,this.isFinished,this.authService.loadUserFromLocalStorage().userId);
+      if(this.title!="" && this.body != "" && this.lessonId != 0){
+        this.noteService.writeNote(this.title,this.body,this.lessonId,this.isFinished,this.authService.loadUserFromLocalStorage().userId);
+      }
     }
 
     returnToList(){
-      this.router.navigateByUrl('/note',{ skipLocationChange: true }).then(() => {
-        this.router.navigateByUrl('/note')});
+      if(this.title!="" && this.body != "" && this.lessonId != 0){
+        this.router.navigateByUrl('/note',{ skipLocationChange: true }).then(() => {
+          this.router.navigateByUrl('/note')});
+      }
     }
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GroupNote } from 'src/app/models/groupnote';
 import { Note } from 'src/app/models/note';
 
 @Injectable({
@@ -34,5 +35,10 @@ export class NoteService {
     const url = "/api/note/update/"+id;
     let req = { title: title, lesson_id: lessonId, student_id: userId, body: body, isFinished: finished };
     this.http.put(url,req).subscribe();
+  }
+
+  writeGroupNotes(notes: GroupNote){
+    const url = "/api/note/groupCreate";
+    this.http.post(url,notes).subscribe();
   }
 }
