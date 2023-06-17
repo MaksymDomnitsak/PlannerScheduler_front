@@ -37,6 +37,7 @@ export class MyNotesComponent implements OnInit{
     
     this.cdr.detectChanges();
     this.cdr.detach();
+    this.cdr.detectChanges();
    }
 
   /*ngAfterViewInit(){

@@ -11,7 +11,6 @@ export interface ScheduleWithTime {
     attendees: User[]; 
     group: Group;
     dayOfWeek: number;
-    evenWeek: boolean;
     lessonOrder: number;
     typeOfLesson: string;
     online: boolean;

@@ -1,6 +1,6 @@
 <div class="container">
   <h4>Множинне створення нотатки</h4>
-<form  [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="title">Назва</label>
       <input type="text" class="form-control" id="title" formControlName="title" required>
@@ -29,20 +29,21 @@
     </div>
     
     <div class="form-group">
-      <label for="group">Group</label>
+      <label for="group">Групи</label>
       <select multiple class="form-control" id="group" formControlName="group">
         <option *ngFor="let group of groups" [value]="group.id">{{ group.name }}</option>
       </select>
     </div>
     
     <div class="form-group">
-      <label for="students">Students</label>
+      <label for="students">Студенти</label>
       <select multiple class="form-control" id="students" formControlName="students">
         <option *ngFor="let student of students" [value]="student.id">{{ student.firstName+" "+student.lastName }}</option>
       </select>
     </div>
     
+    <button type="submit" [disabled]="noteForm.invalid" class="btn btn-primary">Створити</button>
     <button class="btn btn-primary" routerLink="..">Назад до списку</button>
-    <button type="submit" class="btn btn-primary">Create Note</button>
+    
   </form>
 </div>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { TeacherRoutingModule } from './teacher-routing.module';
 import { TeachersPageComponent } from './teachers-page/teachers-page.component';
 import { CreateEventComponent } from './create-event/create-event.component';

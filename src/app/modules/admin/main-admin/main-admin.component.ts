@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
+import { TimerService } from 'src/app/services/timer.service';
 
 @Component({
   selector: 'app-main-admin',
@@ -8,33 +9,41 @@ import { Observable, Subscription, timer } from 'rxjs';
   styleUrls: ['./main-admin.component.css']
 })
 export class MainAdminComponent {
-  timerSubscription!: Subscription;
-  timer$!: Observable<number>;
-  secondsElapsed: number = 0;
-    constructor(private http:HttpClient){}
-
-    startTimer() {
-      this.secondsElapsed = 0;
-      this.timer$ = timer(0, 1000); 
-      this.timerSubscription = this.timer$.subscribe(() => {
-        this.secondsElapsed++;
+  isTimerRunning$: Observable<boolean>;
+  elapsedTime$: Observable<number>;
+  private subscription: Subscription;
+    constructor(private http:HttpClient,private timerService: TimerService){
+      this.isTimerRunning$ = this.timerService.isTimerRunning;
+      this.elapsedTime$ = this.timerService.elapsedTime;
+      this.subscription = this.timerService.isTimerRunning.subscribe(isRunning => {
+        if (!isRunning) {
+          // Зупинити або зробити інші дії, коли таймер зупинений
+        }
       });
     }
 
+    startTimer() {
+      this.timerService.startTimer();
+      console.log(this.isTimerRunning$+" "+this.elapsedTime$)
+    }
+
     stopTimer() {
-      if (this.timerSubscription) {
-        this.timerSubscription.unsubscribe(); // Остановка таймера
-      }
+      this.timerService.stopTimer();
     }
 
     writeGroupToDB(){
       const url = "/api/parse/loadGroups";
-      this.http.get(url).subscribe();
-      this.stopTimer();
+      this.http.get(url).subscribe(
+        (response: any) => {
+          this.stopTimer();
+        })
+      
     }
     writeToDB(){
       const url = "/api/parse/loadAll";
-      this.http.get(url).subscribe();
-      this.stopTimer();
+      this.http.get(url).subscribe(
+        (response: any) => {
+         this.stopTimer();
+       });
     }
 }

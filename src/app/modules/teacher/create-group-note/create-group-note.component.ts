@@ -3,16 +3,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GroupService } from 'src/app/services/group.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
 import { StudentService } from 'src/app/services/student.service';
-import { SubjectService } from 'src/app/services/subject.service';
 import { AuthService } from '../../auth/services/auth.service';
-import { Subject } from 'src/app/models/subject';
 import { Group } from 'src/app/models/group';
 import { Student } from 'src/app/models/student';
 import { NoteService } from '../../note/services/note.service';
-import { Schedule } from 'src/app/models/schedule';
 import { EXTRA_ARRAYS } from 'src/app/models/extraarrays';
 import { GroupNote } from 'src/app/models/groupnote';
 import { Router } from '@angular/router';
+import { ScheduleWithTime } from 'src/app/models/scheduleWithTime';
 
 @Component({
   selector: 'app-create-group-note',
@@ -21,7 +19,7 @@ import { Router } from '@angular/router';
 })
 export class CreateGroupNoteComponent {
   noteForm!: FormGroup;
-  schedule: Schedule[] = [];
+  schedule: ScheduleWithTime[] = [];
   groups: Group[] = [];
   students: Student[] = [];
   daysList = EXTRA_ARRAYS.weekdays;
@@ -33,7 +31,7 @@ export class CreateGroupNoteComponent {
      private studentService: StudentService, 
      private auth: AuthService,
      private router: Router) {
-      this.schedule = scheduleService.getSchedulebyTeacher(this.auth.userProfile.value.userId);
+      this.schedule = scheduleService.getScheduleWithTimebyTeacher(this.auth.userProfile.value.userId);
       groupService.getGroupsByTeacherId(this.auth.userProfile.value.userId).subscribe((response: Group[]) => {response.forEach((item)=>this.groups.push(item));});
       studentService.getStudents().subscribe((response: Student[]) => {response.forEach((item)=>this.students.push(item));});
    }
@@ -59,7 +57,7 @@ export class CreateGroupNoteComponent {
     }
   }
 
-  readLesson(lesson:Schedule){
+  readLesson(lesson:ScheduleWithTime){
     return lesson.subject.name+", "+this.daysList[lesson.dayOfWeek-1].toString()+", "+lesson.typeOfLesson;
   }
 }

@@ -16,7 +16,7 @@
     </li>
 </ul>
 
-<div *ngIf="activeTab === 'tab1'">
+<div class="table-container" *ngIf="activeTab === 'tab1'">
   <table>
     <tr><th>Предмет/назва</th><th>Група</th>
       <th>День тижня</th><th>Початок та кінець події</th>
@@ -25,7 +25,7 @@
       <td>{{subjectName}} </td><td>{{groupName}} </td><td> {{dayOfWeek}}</td>
       <td>{{time}} </td><td>{{typeOfEvent}} </td>
       <td>{{auditory}} </td><td>{{attendees}} </td><td>
-        <button class="btn btn-primary" [routerLink]="['edit/'+event.id]">Edit</button>
+        <button class="btn btn-primary" [routerLink]="['edit/'+event.id]" [disabled]="isDisabled(event)">Edit</button>
         <button class="btn btn-primary" [routerLink]="['import/'+event.id]">Import to GC</button>
         <button *ngIf="isCustomEvent(event)" class="btn btn-primary" (click)="openConfirmDeleteModal(event,ind)">
           Delete
@@ -47,7 +47,7 @@
 </table>
 </div>
 
-<div *ngIf="activeTab === 'tab2'">
+<div class="table-container" *ngIf="activeTab === 'tab2'">
   <table>
     <tr><th>Предмет/назва</th><th>Відповідальний за подію</th>
       <th>День тижня</th><th>Початок та кінець події</th>

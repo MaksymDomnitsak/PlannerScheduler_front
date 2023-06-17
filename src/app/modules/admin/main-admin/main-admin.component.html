@@ -1,6 +1,7 @@
 <div class="container">
-<button class="btn btn-primary" (click)="startTimer(); writeToDB()">Імпортувати інформацію через Selenium в БД</button>
-<button class="btn btn-primary" (click)="startTimer(); writeGroupToDB()">Оновити список груп через Selenium</button>
+<button class="btn btn-primary" (click)="startTimer(); writeToDB(); ">Імпортувати інформацію через Selenium в БД</button>
+<button class="btn btn-primary" (click)="startTimer(); writeGroupToDB();">Оновити список груп через Selenium</button>
+<div class="text-below-button" *ngIf="isTimerRunning$ | async">Витрачено часу: {{ elapsedTime$ | async }}</div>
 <button class="btn btn-primary" disabled hidden="true">Імпортувати інформацію з JSON відповіді в БД</button>
 <button class="btn btn-primary" disabled hidden="true">Користувачі</button>
 <button class="btn btn-primary" disabled hidden="true">Групи</button>
@@ -9,7 +10,5 @@
 <button class="btn btn-primary" disabled hidden="true">Студенти</button>
 <button class="btn btn-primary" disabled hidden="true">Розклад</button>
 <button class="btn btn-primary" disabled hidden="true">Нотатки</button>
-</div>
-<div *ngIf="timerSubscription">
-    <span>Часу витрачено: {{ secondsElapsed | date: 'HH:mm:ss' }}</span>
+
 </div>

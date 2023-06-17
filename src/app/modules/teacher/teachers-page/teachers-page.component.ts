@@ -1,4 +1,4 @@
-import { Component,OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterContentChecked, ChangeDetectorRef, Component,OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ScheduleWithTime } from 'src/app/models/scheduleWithTime';
 import { AuthService } from '../../auth/services/auth.service';
 import { ScheduleService } from 'src/app/services/schedule.service';
@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './teachers-page.component.html',
   styleUrls: ['./teachers-page.component.css']
 })
-export class TeachersPageComponent {
+export class TeachersPageComponent implements AfterContentChecked {
   @ViewChild('confirmDeleteModal')
   confirmDeleteModal!: TemplateRef<any>;
 
@@ -32,7 +32,8 @@ export class TeachersPageComponent {
   attendees: String = "";
   auditory: String = "";
 
-  constructor(private modalService: NgbModal,private service: AuthService, private scheduleService: ScheduleService, private router: Router,utils:ExtraUtils){
+  constructor(private modalService: NgbModal,private service: AuthService, private scheduleService: ScheduleService, private router: Router
+    ,utils:ExtraUtils,private cdr: ChangeDetectorRef){
     this.utils=utils;
   }
 
@@ -63,6 +64,13 @@ export class TeachersPageComponent {
     this.auditory = !event.online ? event.auditoryNumber : "Онлайн";
   }
 
+  ngAfterContentChecked(): void {
+    
+    this.cdr.detectChanges();
+    this.cdr.detach();
+    this.cdr.detectChanges();
+   }
+
   openConfirmDeleteModal(event:ScheduleWithTime,index:number) {
     this.eventForDelete = event;
     this.indexForDelete = index;
@@ -85,5 +93,9 @@ export class TeachersPageComponent {
 
   isCustomEvent(event:ScheduleWithTime): boolean{
     return event.typeOfLesson !== 'LECTURE' && event.typeOfLesson !== 'PRACTICAL' && event.typeOfLesson !== 'LABORATORY';
+  }
+
+  isDisabled(event: ScheduleWithTime){
+    return ((event.typeOfLesson == 'LECTURE') || (event.typeOfLesson == 'PRACTICAL') || (event.typeOfLesson == 'LABORATORY'));
   }
 }

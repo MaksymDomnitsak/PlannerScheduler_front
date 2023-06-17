@@ -5,6 +5,7 @@ import { Schedule } from '../models/schedule';
 import { map,tap } from 'rxjs/operators';
 import { JsonPipe } from '@angular/common';
 import { ScheduleWithTime } from '../models/scheduleWithTime';
+import { CustomEventResponse } from '../models/customEventResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,14 @@ export class ScheduleService {
     return this.scheduleWithTime;
   }
 
+  getScheduleWithTimebyGroup(groupId: string) {
+    this.scheduleWithTime = [];
+    const url = "/api/schedule/groupTime?groupId=";
+    this.http.get<ScheduleWithTime[]>(url+groupId).subscribe((response: ScheduleWithTime[]) => {response.forEach((item)=>this.scheduleWithTime.push(item));});
+    console.log(this.scheduleWithTime)
+    return this.scheduleWithTime;
+  }
+
   getScheduleByAttendee(email: String){
     this.scheduleWithTime = [];
     const url = "/api/schedule?attendeesEmail=";
@@ -61,8 +70,9 @@ export class ScheduleService {
   }
 
   deleteCustomEvent(id: number){
-    const url = "/api/schedule/"
-    this.http.delete<ScheduleWithTime[]>(url+id)
+    const url = "/api/schedule/"+id;
+    console.log(id);
+    this.http.delete<ScheduleWithTime[]>(url).subscribe();
   }
 
   getOneScheduleWithTimebyTeacher(teacherId: number, eventId: number) {
@@ -75,5 +85,10 @@ export class ScheduleService {
 
   getFromList(event: ScheduleWithTime){
     this.eventWithTime=event;
+  }
+
+  createEvent(event: CustomEventResponse){
+    const url = "/api/schedule/custom";
+    this.http.post<CustomEventResponse>(url, event).subscribe();
   }
 }

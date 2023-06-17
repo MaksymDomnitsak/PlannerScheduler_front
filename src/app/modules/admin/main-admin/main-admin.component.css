@@ -6,3 +6,6 @@ button{
     padding: 5px;
     margin: 5px;
 }
+.text-below-button {
+  margin-top: 10px;
+}
