@@ -43,6 +43,13 @@ export class ScheduleService {
     return this.http.get<Schedule[]>(url+teacherId);
   }
 
+  getAll(){
+    this.scheduleWithTime = [];
+    const url = "/api/schedule/getAll";
+    this.http.get<ScheduleWithTime[]>(url).subscribe((response: ScheduleWithTime[]) => {response.forEach((item)=>this.scheduleWithTime.push(item));});
+    return this.scheduleWithTime;
+  }
+
  getSchedule(){
     this.schedule = [];
     const url = "/api/schedule";

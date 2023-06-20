@@ -7,7 +7,6 @@ import { SubjectUpdateComponent } from './subject-update/subject-update.componen
 const routes: Routes = [{
   path: 'subjects', 
   component: SubjectListComponent, 
-  pathMatch: "full"
   },
   {
     path: 'create', 

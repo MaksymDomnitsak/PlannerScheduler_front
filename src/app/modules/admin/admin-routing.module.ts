@@ -4,12 +4,10 @@ import { MainAdminComponent } from './main-admin/main-admin.component';
 
 const routes: Routes = [{
   path: 'admin', 
-  component: MainAdminComponent, 
-  pathMatch: 'full'
-  },{
+  component: MainAdminComponent}
+  ,{
     path: 'users',
     loadChildren: () => import('./childmodules/user/user.module').then(m => m.UserModule),
-    pathMatch: "prefix"
   },
   {
     path: 'students',
@@ -25,7 +23,7 @@ const routes: Routes = [{
     path: 'schedule',
     loadChildren: () => import('./childmodules/schedule/schedule.module').then(m => m.ScheduleModule)
   },{
-    path: 'notes',
+    path: 'notings',
     loadChildren: () => import('./childmodules/note/note.module').then(m => m.NoteModule)
   },{
     path: 'groups',

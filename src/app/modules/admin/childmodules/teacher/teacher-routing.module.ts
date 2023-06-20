@@ -7,7 +7,6 @@ import { TeacherUpdateComponent } from './teacher-update/teacher-update.componen
 const routes: Routes = [{
   path: 'teachers', 
   component: TeacherListComponent, 
-  pathMatch: "full"
   },
   {
     path: 'create', 

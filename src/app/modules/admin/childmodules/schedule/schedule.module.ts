@@ -4,7 +4,7 @@ import { ScheduleUpdateComponent } from './schedule-update/schedule-update.compo
 import { ScheduleCreateComponent } from './schedule-create/schedule-create.component';
 import { ScheduleListComponent } from './schedule-list/schedule-list.component';
 import { ScheduleRoutingModule } from './schedule-routing.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,6 +17,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     ScheduleRoutingModule
   ]
 })

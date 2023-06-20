@@ -20,8 +20,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
-    EventRoutingModule,
-    ReactiveFormsModule
+    
+    ReactiveFormsModule,
+    EventRoutingModule
   ]
 })
 export class EventModule { }

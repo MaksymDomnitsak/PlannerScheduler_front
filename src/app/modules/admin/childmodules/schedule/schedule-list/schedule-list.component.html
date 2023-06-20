@@ -1,1 +1,38 @@
-<p>schedule-list works!</p>
+<div class="container">
+    <h3>Всі події</h3>
+    <p>
+      <button class="btn btn-primary" routerLink="new">Створити подію</button>
+    </p>
+    
+    <div class="table-container">
+      <table>
+        <tr><th>Предмет/назва</th><th>Група</th>
+          <th>День тижня</th><th>Початок та кінець події</th>
+          <th>Тип події</th><th>Номер аудиторії</th><th>Запрошені</th><th></th></tr>
+          <tr *ngFor="let event of schedule; index as ind">{{setValues(event)}}
+          <td>{{subjectName}} </td>
+          <td>{{groupName}} </td>
+          <td> {{dayOfWeek}}</td>
+          <td>{{time}} </td><td>{{typeOfEvent}} </td>
+          <td>{{auditory}} </td><td>{{attendees}} </td><td>
+            <button class="btn btn-primary" [routerLink]="['edit/'+event.id]" >Змінити</button>
+            <button class="btn btn-primary" (click)="openConfirmDeleteModal(event,ind)">
+              Видалити
+            </button>
+            <ng-template #confirmDeleteModal let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title">Видалення</h4>
+              </div>
+              <div class="modal-body">
+                Ви дійсно хочете видалити цю подію?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cancelModal()">Відміна</button>
+                <button type="submit" class="btn btn-danger" (click)="onDeleteConfirmed()">Видалити</button>
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+    </table>
+    </div>
+    <button class="btn btn-primary" routerLink="..">Назад до меню</button>

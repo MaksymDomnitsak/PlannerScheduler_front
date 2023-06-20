@@ -17,7 +17,7 @@ export class AdminGuard implements CanActivate {
           }else if(this.authService.userProfile.value.role == "TEACHER" || this.authService.userProfile.value.role == "STUDENT"){
             resolve(false);
           } else {
-            this.router.navigate(['/auth/login']);
+            this.router.navigate(['/dashboard']);
             resolve(false);
           }   
         }) 

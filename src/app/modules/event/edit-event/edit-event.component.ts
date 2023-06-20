@@ -69,7 +69,8 @@ export class EditEventComponent {
     this.eventForm.get('eventMode')?.setValue(data.online == true ? 'online' : 'offline');
     this.eventForm.get('roomNumber')?.setValue(data.auditoryNumber);
     this.eventForm.get('dayOfWeek')?.setValue(data.dayOfWeek);
-    if(data.lessonOrder !== undefined){
+    console.log(data.lessonOrder);
+    if(data.lessonOrder !== undefined && data.lessonOrder !== null){
       this.eventForm.get('timeOption')?.setValue("classPeriods");
     }
     data.attendees.forEach((user) => {
@@ -95,8 +96,9 @@ export class EditEventComponent {
       this.eventForm.get("eventType")?.value, isOnline,this.eventForm.get("roomNumber")?.value, startTime,endTime);
   
       this.scheduleService.updateEvent(this.eventId,event).subscribe(() => {
-        this.router.navigate(['/teachersPage']);
+        this.router.navigateByUrl('/event-page');
       });
+      
   
     }
   }

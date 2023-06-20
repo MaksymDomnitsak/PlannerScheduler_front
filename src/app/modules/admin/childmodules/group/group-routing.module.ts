@@ -7,7 +7,6 @@ import { GroupUpdateComponent } from './group-update/group-update.component';
 const routes: Routes = [{
   path: 'groups', 
   component: GroupListComponent, 
-  pathMatch: "full"
   },
   {
     path: 'create', 

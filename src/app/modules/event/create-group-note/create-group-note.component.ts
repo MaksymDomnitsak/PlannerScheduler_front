@@ -53,7 +53,7 @@ export class CreateGroupNoteComponent {
       
       console.log(note);
       this.noteService.writeGroupNotes(note);
-      this.router.navigate(['/teachersPage']);
+      this.router.navigate(['/event-page']);
     }
   }
 

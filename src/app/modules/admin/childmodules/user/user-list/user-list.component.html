@@ -1,1 +1,25 @@
-<p>user-list works!</p>
+<h3>Користувачі</h3>
+<button class="create btn btn-primary" routerLink="create">Створити</button>
+<div class="table-container">
+<table class="">
+    <thead>
+      <tr>
+        <th>ПІБ</th>
+        <th>Номер телефону</th>
+        <th>Пошта</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.firstName+" "+user.lastName+" "+user.patronymicName  }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+            <button class="btn btn-primary" [routerLink]="['edit/'+user.id]">Змінити</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button class="return btn btn-primary" routerLink="..">Назад до меню</button>

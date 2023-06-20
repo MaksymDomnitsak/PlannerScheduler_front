@@ -12,8 +12,6 @@ export class ScheduleFindFormDataService {
   schIt = 0;
   schedule: Schedule[] = [];
 
-  
-
    checkAndOutput(dayOfWeek: number,evenWeek:boolean,lessonOrder:number,outputType: string){
      if(outputType == "Group"){
        if(this.schedule.length == 0){
@@ -21,7 +19,6 @@ export class ScheduleFindFormDataService {
        }
        
        if(this.schIt==this.schedule.length){;
-        
          this.schIt--;
        }
        if(this.schedule[this.schIt].dayOfWeek==dayOfWeek && this.schedule[this.schIt].evenWeek==evenWeek && this.schedule[this.schIt].lessonOrder==lessonOrder){

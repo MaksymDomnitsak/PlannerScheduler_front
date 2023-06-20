@@ -4,6 +4,7 @@ import { NoteListComponent } from './note-list/note-list.component';
 import { NoteCreateComponent } from './note-create/note-create.component';
 import { NoteUpdateComponent } from './note-update/note-update.component';
 import { NoteRoutingModule } from './note-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,6 +16,9 @@ import { NoteRoutingModule } from './note-routing.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    
+    ReactiveFormsModule,
     NoteRoutingModule
   ]
 })

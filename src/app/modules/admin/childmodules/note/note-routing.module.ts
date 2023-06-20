@@ -5,9 +5,8 @@ import { NoteCreateComponent } from './note-create/note-create.component';
 import { NoteUpdateComponent } from './note-update/note-update.component';
 
 const routes: Routes = [{
-  path: 'notes', 
+  path: 'notings', 
   component: NoteListComponent, 
-  pathMatch: "full"
   },
   {
     path: 'create', 

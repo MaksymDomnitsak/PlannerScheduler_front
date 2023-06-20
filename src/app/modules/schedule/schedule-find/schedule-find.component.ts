@@ -26,8 +26,6 @@ export class ScheduleFindComponent {
   schdlConverter: ScheduleFindFormDataService;
   utils: ExtraUtils;
   allSchedule: boolean = true;
-  pageCount: number = 0;
-  pageIter: number = 0;
 
   findSchedule!: FormGroup;
 
@@ -52,7 +50,6 @@ export class ScheduleFindComponent {
   }
 
   ngOnInit(){
-    this.pageIter=0;
     this.findSchedule = this.formBuilder.group({
       teacherSelect: [''],
       groupSelect: ['']
@@ -91,22 +88,13 @@ export class ScheduleFindComponent {
         this.schdlConverter.schedule=this.scheduleService.getSchedulebyTeacher(this.findSchedule.get('teacherSelect')!.value);
         
       }else{
-        this.scheduleService.getPageSchedule(0,50).subscribe((response: EventsPage) => {
-          this.pageCount = response.totalPages;
-          this.pageIter = 0;
-          this.schdlConverter.schedule.splice(0);
-        response.content.forEach((item)=>this.schdlConverter.schedule.push(item));});
-      }
-
+        this.schdlConverter.schedule = this.scheduleService.getSchedule();
   }
+}
 
   getAllSchedule(){
     this.allSchedule = true;
-    this.schdlConverter.schedule.splice(0);
-    this.pageIter = 0;
-    this.scheduleService.getPageSchedule(0,50).subscribe((response: EventsPage) => {
-      this.pageCount = response.totalPages;
-    response.content.forEach((item)=>this.schdlConverter.schedule.push(item));});
+    this.schdlConverter.schedule = this.scheduleService.getSchedule();
     if(this.findSchedule.get('groupSelect')!.value !== '' || this.findSchedule.get('teacherSelect')!.value !== ''){
       this.findSchedule.reset();
       this.findSchedule.get('teacherSelect')!.setValue("");
@@ -130,14 +118,6 @@ export class ScheduleFindComponent {
 
   checkFacultySchedule(dayOfWeek: number,evenWeek:boolean,lessonOrder:number,groupId: number){
     this.schdlConverter.checkFacultySchedule(dayOfWeek,evenWeek,lessonOrder,groupId);
-    if(this.schdlConverter.schedule.length == this.schdlConverter.schIt && this.pageIter < this.pageCount-1){
-      this.pageIter++;
-      this.scheduleService.getPageSchedule(this.pageIter,50).subscribe((response: EventsPage) => {
-      response.content.forEach((item)=>{
-        this.schdlConverter.schedule.push(item)});});
-      this.changeDetector.detach();
-      this.changeDetector.detectChanges();
-    }
    }
 
 }

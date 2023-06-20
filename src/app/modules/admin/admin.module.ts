@@ -18,16 +18,15 @@ import { SubjectModule } from './childmodules/subject/subject.module';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule,
-    FormsModule,
     UserModule,
     EventModule,
     StudentModule,
     ScheduleModule,
     GroupModule,
     NoteModule,
-    SubjectModule
-
+    SubjectModule,
+    AdminRoutingModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

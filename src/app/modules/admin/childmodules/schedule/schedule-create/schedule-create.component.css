@@ -1,0 +1,43 @@
+.container{
+    margin:100px auto;
+}
+button{
+    margin: 10px;
+}
+.form-group{
+    padding: 10px
+}
+.single{
+    max-width:20%;
+}
+.form-row {
+    display: flex;
+    align-items: center; 
+    margin-top: 10px;
+  }
+label{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.form-group label{
+    margin-top: 10px;
+}
+button{
+    margin: 10px 10px 10px 10px;
+}
+.container{
+    margin:100px auto;
+}
+.multi{
+    max-width: 22%;
+}
+.time{
+    max-width: 100px;
+}
+#classPeriod{
+    margin-top: 20px;
+}
+#eventType, #dayOfWeek{
+    max-width: 16%;
+}

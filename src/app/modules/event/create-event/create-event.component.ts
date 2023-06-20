@@ -65,7 +65,8 @@ export class CreateEventComponent implements OnInit {
     this.eventForm.get("eventType")?.value, isOnline,this.eventForm.get("roomNumber")?.value, startTime,endTime);
 
     this.scheduleService.createEvent(event).subscribe(() => {
-      this.router.navigate(['/teachersPage']);
+      this.router.navigateByUrl('/event-page');
     });
   }
+
 }

@@ -51,7 +51,7 @@ export class ImportToGCComponent {
     this.eventForm.get('attendees')!.value, this.eventForm.get('conference')!.value, this.scheduleWithTime.id);
     event.summary = this.scheduleWithTime.customTitle === null ? this.scheduleWithTime.subject.name : this.scheduleWithTime.customTitle;
     this.importService.importToGC(event);
-    this.router.navigate(['/teachersPage']);
+    this.router.navigate(['/event-page']);
   }
 
   summaryCheck(){

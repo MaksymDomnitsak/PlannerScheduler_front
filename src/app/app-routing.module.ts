@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { Page404Component } from './pages/page-404/page404.component';
 
 const routes: Routes = [{
   path:"",
@@ -43,7 +44,7 @@ const routes: Routes = [{
   canActivate: [AuthGuard,AdminGuard],
   data: {
     userType: 'logged-in',
-  },
+  }
 }];
 
 @NgModule({

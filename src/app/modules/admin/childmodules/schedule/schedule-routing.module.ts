@@ -7,7 +7,6 @@ import { ScheduleUpdateComponent } from './schedule-update/schedule-update.compo
 const routes: Routes = [{
   path: 'schedule', 
   component: ScheduleListComponent, 
-  pathMatch: "full"
   },
   {
     path: 'create', 

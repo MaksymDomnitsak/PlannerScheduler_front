@@ -31,7 +31,7 @@ export class MainAdminComponent {
     writeGroupToDB(){
       const url = "/api/parse/loadGroups";
       this.http.get(url).subscribe(
-        (response: any) => {
+        () => {
           this.stopTimer();
         })
       
@@ -39,7 +39,7 @@ export class MainAdminComponent {
     writeToDB(){
       const url = "/api/parse/loadAll";
       this.http.get(url).subscribe(
-        (response: any) => {
+        () => {
          this.stopTimer();
        });
     }

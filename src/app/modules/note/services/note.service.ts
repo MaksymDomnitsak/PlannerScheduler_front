@@ -16,6 +16,11 @@ export class NoteService {
     return this.http.get<Note[]>(url+studentId);
   }
 
+  loadAllNotes(){
+    const url = "/api/note";
+    return this.http.get<Note[]>(url);
+  }
+
   deleteNote(noteId: number){
     const url = "/api/note/";
     return this.http.delete(url+noteId);

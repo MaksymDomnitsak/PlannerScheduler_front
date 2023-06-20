@@ -2,7 +2,7 @@
     <h1>Мої нотатки</h1>
 
 <p>
-    <button class="btn btn-primary" routerLink="new">Create New</button>
+    <button class="btn btn-primary" routerLink="new">Створити</button>
 </p>
 <table class="table">
     <tbody>
@@ -28,10 +28,10 @@
                  {{isFinished(note)}}
                </td>
                 <td>
-                    <button class="btn btn-primary" [routerLink]="['edit/'+note.id]">Edit</button> 
+                    <button class="btn btn-primary" [routerLink]="['edit/'+note.id]">Змінити</button> 
                 </td>
                   <td> 
-                    <button class="btn btn-primary" (click)="openConfirmDeleteModal(note,ind)">Delete</button>
+                    <button class="btn btn-primary" (click)="openConfirmDeleteModal(note,ind)">Видалити</button>
     
                         <ng-template #confirmDeleteModal let-modal>
                           <div class="modal-header">
