@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { toInteger } from '@ng-bootstrap/ng-bootstrap/util/util';
 import { Note } from 'src/app/models/note';
+import { EXTRA_ARRAYS } from 'src/app/models/extraarrays';
 
 @Component({
   selector: 'app-upd-note',
@@ -23,7 +24,7 @@ export class UpdNoteComponent {
 
   scheduleList:Schedule[] = [];
 
-  daysList:string[] = ["Понеділок","Вівторок","Середа","Четвер","П'ятниця","Субота","Неділя"]
+  daysList=EXTRA_ARRAYS.weekdays;
 
   constructor(private scheduleService:ScheduleService,private noteService:NoteService,private router: Router,private authService:AuthService,private activateRoute: ActivatedRoute)
     {    
@@ -37,13 +38,11 @@ export class UpdNoteComponent {
     }
 
     updateDB(){
-      this.noteService.updateNote(this.id,this.title,this.body,this.lessonId,this.isFinished,this.authService.loadUserFromLocalStorage().userId);
+      this.noteService.updateNote(this.id,this.title,this.body,this.lessonId,this.isFinished,this.authService.loadUserFromLocalStorage().userId)
+      .subscribe(()=> {
+        this.router.navigateByUrl('/note');
+      });
     }
-
-    returnToList(){
-      this.router.navigateByUrl('/note',{ skipLocationChange: true }).then(() => {
-        this.router.navigateByUrl('/note')});
-      }
 
       
     setFormValues(data:Note){

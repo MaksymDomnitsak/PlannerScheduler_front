@@ -33,17 +33,11 @@ export class MyNotesComponent implements OnInit{
     this.notes.splice(0);
   }
 
-  ngAfterContentChecked(): void {
-    
+  ngAfterContentChecked(): void { 
     this.cdr.detectChanges();
     this.cdr.detach();
     this.cdr.detectChanges();
    }
-
-  /*ngAfterViewInit(){
-    this.notes.splice(0);
-    this.service.loadNotes(this.auth.loadUserFromLocalStorage().userId).subscribe((response: Note[]) => {response.forEach((item)=>this.notes.push(item));});
-  }*/
 
 
   openConfirmDeleteModal(note:Note,index:number) {
@@ -53,10 +47,11 @@ export class MyNotesComponent implements OnInit{
   }
 
   onDeleteConfirmed() {
-    this.service.deleteNote(this.noteForDelete!.id);
     this.notes.splice(this.indexForDelete,1);
     this.modalService.dismissAll(this.confirmDeleteModal);
-    this.router.navigateByUrl('/note',{ skipLocationChange: true });
+    this.service.deleteNote(this.noteForDelete!.id).subscribe(() => {
+      this.router.navigateByUrl('/note',{ skipLocationChange: true });
+    });
   }
 
   cancelModal(){

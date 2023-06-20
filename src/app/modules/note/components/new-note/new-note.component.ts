@@ -33,14 +33,9 @@ export class NewNoteComponent {
     
     writeToDB(){
       if(this.title!="" && this.body != "" && this.lessonId != 0){
-        this.noteService.writeNote(this.title,this.body,this.lessonId,this.isFinished,this.authService.loadUserFromLocalStorage().userId);
-      }
-    }
-
-    returnToList(){
-      if(this.title!="" && this.body != "" && this.lessonId != 0){
-        this.router.navigateByUrl('/note',{ skipLocationChange: true }).then(() => {
-          this.router.navigateByUrl('/note')});
+        this.noteService.writeNote(this.title,this.body,this.lessonId,this.isFinished,this.authService.loadUserFromLocalStorage().userId).subscribe(()=> {
+          this.router.navigateByUrl('/note');
+        });
       }
     }
 }

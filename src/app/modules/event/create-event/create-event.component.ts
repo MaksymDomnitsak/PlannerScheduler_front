@@ -35,14 +35,14 @@ export class CreateEventComponent implements OnInit {
   ngOnInit() {
     this.eventForm = this.formBuilder.group({
       title: ['', Validators.required],
-      subjects: [''],
+      subjects: [0],
       attendees: [[]],
-      groups: [''],
+      groups: [0],
       dayOfWeek: ['', Validators.required],
       timeOption: ['timeRange'],
       startTime: [''],
       endTime: [''],
-      classPeriod: [''],
+      classPeriod: ['1', [Validators.min(1), Validators.max(5)]],
       eventType: ['', Validators.required],
       eventMode: ['online'],
       roomNumber: ['']
@@ -60,12 +60,12 @@ export class CreateEventComponent implements OnInit {
       startTime = this.utils.startTimeFromNumber(this.eventForm.get("classPeriod")?.value);
       endTime = this.utils.endTimeFromNumber(this.eventForm.get("classPeriod")?.value);
     }
-    let event = new CustomEventResponse(this.eventForm.get("title")?.value,this.eventForm.get("subjects")?.value,this.authService.userProfile.value.userId, 
+    let event = new CustomEventResponse(0,this.eventForm.get("title")?.value,this.eventForm.get("subjects")?.value,this.authService.userProfile.value.userId, 
     this.eventForm.get("attendees")?.value, this.eventForm.get("groups")?.value,this.eventForm.get("dayOfWeek")?.value,this.eventForm.get("classPeriod")?.value,
     this.eventForm.get("eventType")?.value, isOnline,this.eventForm.get("roomNumber")?.value, startTime,endTime);
 
-    this.scheduleService.createEvent(event);
-
-    this.router.navigate(['/teachersPage']);
+    this.scheduleService.createEvent(event).subscribe(() => {
+      this.router.navigate(['/teachersPage']);
+    });
   }
 }

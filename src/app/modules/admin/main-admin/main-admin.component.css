@@ -1,11 +1,25 @@
 .container {
+    align-items:center ;
     max-width: 1200px; 
-    margin: 100px 150px; 
+    margin-top: 100px; 
+    margin-left: 50px;
   }
 button{
     padding: 5px;
     margin: 5px;
+    background-color: #123456 !important;
 }
 .text-below-button {
   margin-top: 10px;
+}
+.form-row {
+  display: flex;
+  align-items: center; 
+  margin-top: 10px;
+}
+.top-right-div {
+  position: fixed;
+  top: 200px;
+  right: 380px;
+  font-weight: bold;
 }

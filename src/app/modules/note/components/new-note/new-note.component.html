@@ -15,7 +15,7 @@
       <label for="body">Опис</label>
       <textarea class="form-control" id="body" rows="5" [(ngModel)]="body" [ngModelOptions]="{standalone: true}"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary" (click)="writeToDB(); returnToList();">Записати</button>
+    <button type="submit" class="btn btn-primary" (click)="writeToDB()">Записати</button>
     <button class="btn btn-primary" routerLink="..">Назад до списку</button>
   </form>
 </div>

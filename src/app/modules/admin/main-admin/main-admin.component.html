@@ -1,14 +1,23 @@
 <div class="container">
-<button class="btn btn-primary" (click)="startTimer(); writeToDB(); ">Імпортувати інформацію через Selenium в БД</button>
-<button class="btn btn-primary" (click)="startTimer(); writeGroupToDB();">Оновити список груп через Selenium</button>
-<div class="text-below-button" *ngIf="isTimerRunning$ | async">Витрачено часу: {{ elapsedTime$ | async }}</div>
-<button class="btn btn-primary" disabled hidden="true">Імпортувати інформацію з JSON відповіді в БД</button>
-<button class="btn btn-primary" disabled hidden="true">Користувачі</button>
-<button class="btn btn-primary" disabled hidden="true">Групи</button>
-<button class="btn btn-primary" disabled hidden="true">Предмети</button>
-<button class="btn btn-primary" disabled hidden="true">Викладачі</button>
-<button class="btn btn-primary" disabled hidden="true">Студенти</button>
-<button class="btn btn-primary" disabled hidden="true">Розклад</button>
-<button class="btn btn-primary" disabled hidden="true">Нотатки</button>
-
+    <h4 class="">Автоматичне оновлення з сайту</h4>
+    <div class="form-row">
+        <button class="btn btn-primary col-sm" (click)="startTimer(); writeToDB(); ">Імпортувати інформацію через Selenium в БД</button>
+        <button class="btn btn-primary col-sm" (click)="startTimer(); writeGroupToDB();">Оновити список груп через Selenium</button>
+        <button class="btn btn-primary col-sm" disabled hidden="true">Імпортувати інформацію з JSON відповіді в БД</button>
+    </div>
+<div class="top-right-div" *ngIf="isTimerRunning$ | async">Витрачено часу: {{ elapsedTime$ | async }}</div>
+</div>
+<div class="container">
+    <h4 class="">Доступ до інформації з бази даних</h4>
+    <div class="form-row ">
+        <button class="btn btn-primary col-sm" >Користувачі</button>
+        <button class="btn btn-primary col-sm">Групи</button>
+        <button class="btn btn-primary col-sm" >Предмети</button>
+    </div>
+    <div class="form-row">
+        <button class="btn btn-primary col-sm" >Викладачі</button>
+        <button class="btn btn-primary col-sm" >Студенти</button>
+        <button class="btn btn-primary col-sm" >Розклад</button>
+        <button class="btn btn-primary col-sm" >Нотатки</button>
+    </div>
 </div>

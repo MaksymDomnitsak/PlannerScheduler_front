@@ -4,7 +4,7 @@ import { MainAdminComponent } from './main-admin/main-admin.component';
 import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { UserModule } from './childmodules/user/user.module';
-import { TeacherModule } from './childmodules/teacher/teacher.module';
+import { EventModule } from './childmodules/teacher/teacher.module';
 import { StudentModule } from './childmodules/student/student.module';
 import { ScheduleModule } from './childmodules/schedule/schedule.module';
 import { GroupModule } from './childmodules/group/group.module';
@@ -21,7 +21,7 @@ import { SubjectModule } from './childmodules/subject/subject.module';
     AdminRoutingModule,
     FormsModule,
     UserModule,
-    TeacherModule,
+    EventModule,
     StudentModule,
     ScheduleModule,
     GroupModule,

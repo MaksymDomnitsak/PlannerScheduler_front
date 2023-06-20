@@ -14,7 +14,7 @@ import { NoteModule } from './modules/note/note.module';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminModule } from './modules/admin/admin.module';
 import { ScheduleModule } from './modules/schedule/schedule.module';
-import { TeacherModule } from './modules/teacher/teacher.module';
+import { EventModule } from './modules/event/event.module';
 import { AllScheduleComponent } from './components/all-schedule/all-schedule.component';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { AllScheduleComponent } from './components/all-schedule/all-schedule.com
     NoteModule,
     AdminModule,
     ScheduleModule,
-    TeacherModule,
+    EventModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModalModule

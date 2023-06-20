@@ -31,7 +31,7 @@ export class CreateGroupNoteComponent {
      private studentService: StudentService, 
      private auth: AuthService,
      private router: Router) {
-      this.schedule = scheduleService.getScheduleWithTimebyTeacher(this.auth.userProfile.value.userId);
+      this.schedule = scheduleService.getScheduleWithTimebyCreator(this.auth.userProfile.value.userId);
       groupService.getGroupsByTeacherId(this.auth.userProfile.value.userId).subscribe((response: Group[]) => {response.forEach((item)=>this.groups.push(item));});
       studentService.getStudents().subscribe((response: Student[]) => {response.forEach((item)=>this.students.push(item));});
    }

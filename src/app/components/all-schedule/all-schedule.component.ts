@@ -35,8 +35,12 @@ export class AllScheduleComponent {
       this.schdlConverter = scheduleConverter;
       this.utils = utils;
       this.readDB();
-      groupService.getGroups().subscribe((response: Group[]) => {response.forEach((item)=>this.groups.push(item));})
-  }
+      groupService.getGroups().subscribe((response: Group[]) => {response.forEach((item)=> {
+        if(item.name != "-"){
+        this.groups.push(item)
+         }})
+  })
+}
 
   checkFacultySchedule(dayOfWeek: number,evenWeek:boolean,lessonOrder:number,groupId: number){
     this.schdlConverter.checkFacultySchedule(dayOfWeek,evenWeek,lessonOrder,groupId);
@@ -44,6 +48,7 @@ export class AllScheduleComponent {
 
    ngAfterViewChecked(): void {
     this.schdlConverter.schIt=0;
+    
   }
 
   ngOnInit(){

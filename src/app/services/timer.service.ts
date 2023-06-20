@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class TimerService {
   public isTimerRunning$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public elapsedTime$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  public timerInterval: any;
   get isTimerRunning(): Observable<boolean> {
     return this.isTimerRunning$.asObservable();
   }
@@ -18,20 +19,17 @@ export class TimerService {
   startTimer() {
     this.isTimerRunning$.next(true);
     let elapsedTime = 0;
-    const interval = setInterval(() => {
+    this.timerInterval = setInterval(() => {
+      if(elapsedTime < 60){
       elapsedTime++;
+      }else this.stopTimer();
       this.elapsedTime$.next(elapsedTime);
     }, 1000);
-
-    // Опційно: зберегти інтервал у сервісі, якщо вам потрібен доступ до нього в майбутньому
-    // this.interval = interval;
   }
 
   stopTimer() {
-    this.isTimerRunning$.next(false);
+    clearInterval(this.timerInterval);
     this.elapsedTime$.next(0);
-    //clearInterval(this.elapsedTime$.value)
-    // Очистити інтервал, якщо ви його зберегли
-    // clearInterval(this.interval);
+    this.isTimerRunning$.next(false);
   }
 }

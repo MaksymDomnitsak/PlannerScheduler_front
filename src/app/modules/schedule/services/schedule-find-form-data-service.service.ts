@@ -21,6 +21,7 @@ export class ScheduleFindFormDataService {
        }
        
        if(this.schIt==this.schedule.length){;
+        
          this.schIt--;
        }
        if(this.schedule[this.schIt].dayOfWeek==dayOfWeek && this.schedule[this.schIt].evenWeek==evenWeek && this.schedule[this.schIt].lessonOrder==lessonOrder){
@@ -55,6 +56,7 @@ export class ScheduleFindFormDataService {
         this.lesInfo=" ";
       }
      }
+
     return;
    }
 

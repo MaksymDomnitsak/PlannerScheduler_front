@@ -11,6 +11,7 @@ import { EXTRA_ARRAYS } from 'src/app/models/extraarrays';
 import { User } from 'src/app/models/user';
 import { ScheduleFindFormDataService } from '../services/schedule-find-form-data-service.service';
 import { ExtraUtils } from 'src/app/services/utils';
+import { EventsPage } from 'src/app/models/eventsPage';
 
 @Component({
   selector: 'app-schedule-find',
@@ -25,6 +26,8 @@ export class ScheduleFindComponent {
   schdlConverter: ScheduleFindFormDataService;
   utils: ExtraUtils;
   allSchedule: boolean = true;
+  pageCount: number = 0;
+  pageIter: number = 0;
 
   findSchedule!: FormGroup;
 
@@ -38,11 +41,18 @@ export class ScheduleFindComponent {
     schdlConverter: ScheduleFindFormDataService){
       this.schdlConverter = schdlConverter;
       this.utils = utils;
-      this.groupService.getGroups().subscribe((data: Group[]) => data.forEach((item) => this.groupList.push(item)));
+      this.groupService.getGroups().subscribe((data: Group[]) => data.forEach((item) => {
+        if(item.name != "-"){
+        this.groupList.push(item)
+        }
+      }
+        )
+      );
       this.teacherService.getTeachers().subscribe((data: Teacher[]) => data.forEach((item) => this.teacherList.push(item)));
   }
 
   ngOnInit(){
+    this.pageIter=0;
     this.findSchedule = this.formBuilder.group({
       teacherSelect: [''],
       groupSelect: ['']
@@ -70,7 +80,6 @@ export class ScheduleFindComponent {
 
   ngAfterViewChecked(): void {
     this.schdlConverter.schIt = 0;
-    
   }
 
   getScheduleByTeacherOrGroup(){
@@ -82,19 +91,29 @@ export class ScheduleFindComponent {
         this.schdlConverter.schedule=this.scheduleService.getSchedulebyTeacher(this.findSchedule.get('teacherSelect')!.value);
         
       }else{
-        this.schdlConverter.schedule = this.scheduleService.getSchedule();
+        this.scheduleService.getPageSchedule(0,50).subscribe((response: EventsPage) => {
+          this.pageCount = response.totalPages;
+          this.pageIter = 0;
+          this.schdlConverter.schedule.splice(0);
+        response.content.forEach((item)=>this.schdlConverter.schedule.push(item));});
       }
 
   }
 
   getAllSchedule(){
     this.allSchedule = true;
-    this.schdlConverter.schedule = this.scheduleService.getSchedule();
+    this.schdlConverter.schedule.splice(0);
+    this.pageIter = 0;
+    this.scheduleService.getPageSchedule(0,50).subscribe((response: EventsPage) => {
+      this.pageCount = response.totalPages;
+    response.content.forEach((item)=>this.schdlConverter.schedule.push(item));});
     if(this.findSchedule.get('groupSelect')!.value !== '' || this.findSchedule.get('teacherSelect')!.value !== ''){
       this.findSchedule.reset();
       this.findSchedule.get('teacherSelect')!.setValue("");
       this.findSchedule.get('groupSelect')!.setValue("");
     }
+    this.changeDetector.detectChanges();
+
   }
 
   readTeacherName(teacher: Teacher){
@@ -111,6 +130,14 @@ export class ScheduleFindComponent {
 
   checkFacultySchedule(dayOfWeek: number,evenWeek:boolean,lessonOrder:number,groupId: number){
     this.schdlConverter.checkFacultySchedule(dayOfWeek,evenWeek,lessonOrder,groupId);
+    if(this.schdlConverter.schedule.length == this.schdlConverter.schIt && this.pageIter < this.pageCount-1){
+      this.pageIter++;
+      this.scheduleService.getPageSchedule(this.pageIter,50).subscribe((response: EventsPage) => {
+      response.content.forEach((item)=>{
+        this.schdlConverter.schedule.push(item)});});
+      this.changeDetector.detach();
+      this.changeDetector.detectChanges();
+    }
    }
 
 }

@@ -30,8 +30,8 @@ const routes: Routes = [{
   },
 },
 {
-  path: 'teachersPage',
-  loadChildren: () => import('./modules/teacher/teacher.module').then(m => m.TeacherModule),
+  path: 'event-page',
+  loadChildren: () => import('./modules/event/event.module').then(m => m.EventModule),
   canActivate: [AuthGuard],
   data: {
       userType: 'logged-in',

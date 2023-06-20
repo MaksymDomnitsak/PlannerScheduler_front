@@ -9,16 +9,17 @@ import { ExtraUtils } from 'src/app/services/utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-teachers-page',
-  templateUrl: './teachers-page.component.html',
-  styleUrls: ['./teachers-page.component.css']
+  selector: 'app-event-page',
+  templateUrl: './event-page.component.html',
+  styleUrls: ['./event-page.component.css']
 })
-export class TeachersPageComponent implements AfterContentChecked {
+export class EventPageComponent implements AfterContentChecked {
   @ViewChild('confirmDeleteModal')
   confirmDeleteModal!: TemplateRef<any>;
 
   eventForDelete: ScheduleWithTime | undefined;
   indexForDelete!: number;
+  userRole!: string;
 
   activeTab = "tab1";
   utils:ExtraUtils;
@@ -35,15 +36,17 @@ export class TeachersPageComponent implements AfterContentChecked {
   constructor(private modalService: NgbModal,private service: AuthService, private scheduleService: ScheduleService, private router: Router
     ,utils:ExtraUtils,private cdr: ChangeDetectorRef){
     this.utils=utils;
+    
   }
 
   ngOnInit(){
-    this.schedule=this.scheduleService.getScheduleWithTimebyTeacher(this.service.userProfile.value.userId);
+    this.userRole = this.service.userProfile.value.role;
+    this.schedule = this.scheduleService.getScheduleWithTimebyCreator(this.service.userProfile.value.userId);
   }
 
   changeTab(tab:string){
     this.activeTab=tab;
-    this.schedule = tab === "tab1" ? this.scheduleService.getScheduleWithTimebyTeacher(this.service.userProfile.value.userId) :
+    this.schedule = tab === "tab1" ? this.scheduleService.getScheduleWithTimebyCreator(this.service.userProfile.value.userId) :
       this.scheduleService.getScheduleByAttendee(this.service.userProfile.value.email);
   }
 
@@ -55,17 +58,17 @@ export class TeachersPageComponent implements AfterContentChecked {
     this.time = event.startTime + "-" + event.endTime;
     this.typeOfEvent = event.typeOfLesson;
     this.attendees = "-";
-    if(event.attendees == undefined){
+    if(event.attendees.length != 0){
       let users: User[] = event.attendees;
-      for(let i in this.utils.getRange(0,users.length)){
-        this.attendees+=users[i].firstName+ " " +users[i].lastName+",";
-      }
+      users.forEach((user) => {
+        this.attendees+=user.firstName+ " " +user.lastName+", ";
+      })
+      this.attendees=this.attendees.slice(1,this.attendees.length-2);
     }
     this.auditory = !event.online ? event.auditoryNumber : "Онлайн";
   }
 
   ngAfterContentChecked(): void {
-    
     this.cdr.detectChanges();
     this.cdr.detach();
     this.cdr.detectChanges();
@@ -78,10 +81,12 @@ export class TeachersPageComponent implements AfterContentChecked {
   }
 
   onDeleteConfirmed() {
-    this.scheduleService.deleteCustomEvent(this.eventForDelete!.id);
     this.schedule.splice(this.indexForDelete,1);
     this.modalService.dismissAll(this.confirmDeleteModal);
-    this.router.navigate(['/teachersPage']);
+    this.scheduleService.deleteCustomEvent(this.eventForDelete!.id).subscribe(() => {
+      this.router.navigate(['/teachersPage']);
+    });
+    
 
   }
 

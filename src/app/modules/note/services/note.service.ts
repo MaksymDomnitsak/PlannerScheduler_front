@@ -18,13 +18,13 @@ export class NoteService {
 
   deleteNote(noteId: number){
     const url = "/api/note/";
-    return this.http.delete(url+noteId).subscribe();
+    return this.http.delete(url+noteId);
   }
 
   writeNote(title: string,body: string,lessonId: number,isFinished:boolean,userId: number){
     const url = "/api/note/create";
     const req = { title: title, lesson_id: lessonId,student_id: userId,body: body, isFinished: false};
-    this.http.post(url,req).subscribe();
+    return this.http.post(url,req);
   }
 
   loadNote(noteId: number){
@@ -34,7 +34,7 @@ export class NoteService {
   updateNote(id: number,title: string,body: string,lessonId: number,finished:boolean,userId: number){
     const url = "/api/note/update/"+id;
     let req = { title: title, lesson_id: lessonId, student_id: userId, body: body, isFinished: finished };
-    this.http.put(url,req).subscribe();
+    return this.http.put(url,req);
   }
 
   writeGroupNotes(notes: GroupNote){

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TeachersPageComponent } from './teachers-page/teachers-page.component';
+import { EventPageComponent } from './event-page/event-page.component';
 import { CreateEventComponent } from './create-event/create-event.component';
 import { CreateGroupNoteComponent } from './create-group-note/create-group-note.component';
 import { EditEventComponent } from './edit-event/edit-event.component';
@@ -8,8 +8,8 @@ import { ImportToGCComponent } from './import-to-gc/import-to-gc.component';
 
 const routes: Routes = [
   {
-  path: "teachersPage",
-  component: TeachersPageComponent,
+  path: "event-page",
+  component: EventPageComponent,
 },
 {
   path: "new",
@@ -33,4 +33,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TeacherRoutingModule { }
+export class EventRoutingModule { }

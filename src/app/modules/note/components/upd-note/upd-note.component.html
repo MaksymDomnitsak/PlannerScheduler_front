@@ -19,7 +19,7 @@
         <label for="finished">Чи завершено</label>
         <input type="checkbox" class="form-check-input" id="finished" [(ngModel)]="isFinished" required [ngModelOptions]="{standalone: true}">
       </div>
-    <button type="submit" class="btn btn-primary"  (click)="updateDB(); returnToList();">Записати</button>
+    <button type="submit" class="btn btn-primary"  (click)="updateDB()">Записати</button>
     <button class="btn btn-primary" routerLink="../..">Назад до списку</button>
   </form>
 </div>

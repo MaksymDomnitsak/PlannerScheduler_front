@@ -17,7 +17,7 @@ const routes: Routes = [{
   },
   {
     path: 'teachers',
-    loadChildren: () => import('./childmodules/teacher/teacher.module').then(m => m.TeacherModule)
+    loadChildren: () => import('./childmodules/teacher/teacher.module').then(m => m.EventModule)
   },{
     path: 'subjects',
     loadChildren: () => import('./childmodules/subject/subject.module').then(m => m.SubjectModule)

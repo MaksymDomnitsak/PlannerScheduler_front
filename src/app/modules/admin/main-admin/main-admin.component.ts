@@ -16,9 +16,6 @@ export class MainAdminComponent {
       this.isTimerRunning$ = this.timerService.isTimerRunning;
       this.elapsedTime$ = this.timerService.elapsedTime;
       this.subscription = this.timerService.isTimerRunning.subscribe(isRunning => {
-        if (!isRunning) {
-          // Зупинити або зробити інші дії, коли таймер зупинений
-        }
       });
     }
 

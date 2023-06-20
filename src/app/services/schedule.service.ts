@@ -6,6 +6,7 @@ import { map,tap } from 'rxjs/operators';
 import { JsonPipe } from '@angular/common';
 import { ScheduleWithTime } from '../models/scheduleWithTime';
 import { CustomEventResponse } from '../models/customEventResponse';
+import { EventsPage } from '../models/eventsPage';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,12 @@ export class ScheduleService {
 
   constructor(private http: HttpClient) {}
 
+  getById(eventId: number){
+    const url = "/api/schedule/";
+    return this.http.get<ScheduleWithTime>(url+eventId);
+  }
+
   getSchedulebyGroup(groupId: string) {
-    console.log("group:"+groupId)
     this.schedule = [];
     const url = "/api/schedule?groupId=";
     this.http.get<Schedule[]>(url+groupId).subscribe((response: Schedule[]) => {response.forEach((item)=>this.schedule.push(item));});
@@ -27,7 +32,6 @@ export class ScheduleService {
 
   getSchedulebyTeacher(teacherId: number) {
     this.schedule = [];
-    console.log("teacher:"+teacherId)
     const url = "/api/schedule?teacherId=";
     this.http.get<Schedule[]>(url+teacherId).subscribe((response: Schedule[]) => {response.forEach((item)=>this.schedule.push(item));});
     return this.schedule;
@@ -46,11 +50,10 @@ export class ScheduleService {
     return this.schedule;
   }
 
-  getScheduleWithTimebyTeacher(teacherId: number) {
+  getScheduleWithTimebyCreator(creatorId: number) {
     this.scheduleWithTime = [];
-    const url = "/api/schedule/time?teacherId=";
-    this.http.get<ScheduleWithTime[]>(url+teacherId).subscribe((response: ScheduleWithTime[]) => {response.forEach((item)=>this.scheduleWithTime.push(item));});
-    console.log(this.scheduleWithTime)
+    const url = "/api/schedule/time?creatorId=";
+    this.http.get<ScheduleWithTime[]>(url+creatorId).subscribe((response: ScheduleWithTime[]) => {response.forEach((item)=>this.scheduleWithTime.push(item));});
     return this.scheduleWithTime;
   }
 
@@ -58,7 +61,7 @@ export class ScheduleService {
     this.scheduleWithTime = [];
     const url = "/api/schedule/groupTime?groupId=";
     this.http.get<ScheduleWithTime[]>(url+groupId).subscribe((response: ScheduleWithTime[]) => {response.forEach((item)=>this.scheduleWithTime.push(item));});
-    console.log(this.scheduleWithTime)
+
     return this.scheduleWithTime;
   }
 
@@ -71,15 +74,13 @@ export class ScheduleService {
 
   deleteCustomEvent(id: number){
     const url = "/api/schedule/"+id;
-    console.log(id);
-    this.http.delete<ScheduleWithTime[]>(url).subscribe();
+    return this.http.delete<ScheduleWithTime[]>(url);
   }
 
   getOneScheduleWithTimebyTeacher(teacherId: number, eventId: number) {
     this.scheduleWithTime = [];
-    const url = "/api/schedule/time?teacherId=";
+    const url = "/api/schedule/time?creatorId=";
     this.http.get<ScheduleWithTime[]>(url+teacherId).subscribe((response: ScheduleWithTime[]) => {response.forEach((item)=>item.id == eventId ? this.getFromList(item): null);});
-    console.log(this.scheduleWithTime)
     return this.scheduleWithTime;
   }
 
@@ -89,6 +90,17 @@ export class ScheduleService {
 
   createEvent(event: CustomEventResponse){
     const url = "/api/schedule/custom";
-    this.http.post<CustomEventResponse>(url, event).subscribe();
+    return this.http.post<CustomEventResponse>(url, event);
+  }
+
+  updateEvent(eventId: number,event: CustomEventResponse){
+    const url = "/api/schedule/update/";
+    return this.http.put<CustomEventResponse>(url+eventId, event);
+  }
+
+  getPageSchedule(page: number, size: number){
+    this.schedule = [];
+    const url = "/api/schedule?page="+page+"&size="+size;
+    return this.http.get<EventsPage>(url);
   }
 }

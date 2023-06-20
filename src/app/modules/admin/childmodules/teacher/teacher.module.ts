@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TeacherListComponent } from './teacher-list/teacher-list.component';
 import { TeacherCreateComponent } from './teacher-create/teacher-create.component';
 import { TeacherUpdateComponent } from './teacher-update/teacher-update.component';
-import { TeacherRoutingModule } from './teacher-routing.module';
+import { EventRoutingModule } from './teacher-routing.module';
 
 
 
@@ -15,7 +15,7 @@ import { TeacherRoutingModule } from './teacher-routing.module';
   ],
   imports: [
     CommonModule,
-    TeacherRoutingModule
+    EventRoutingModule
   ]
 })
-export class TeacherModule { }
+export class EventModule { }
