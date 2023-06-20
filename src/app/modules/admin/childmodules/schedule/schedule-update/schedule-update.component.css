@@ -41,3 +41,6 @@ button{
 #eventType, #dayOfWeek{
     max-width: 16%;
 }
+button{
+    background-color: #123456 !important;
+}

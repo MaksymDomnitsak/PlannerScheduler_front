@@ -74,3 +74,8 @@ caption {
     margin-left: 30px;
     margin-top: 20px;
 }
+button{
+    padding: 5px;
+    margin: 5px;
+    background-color: #123456 !important;
+}
