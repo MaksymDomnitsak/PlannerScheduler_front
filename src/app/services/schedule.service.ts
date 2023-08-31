@@ -37,12 +37,6 @@ export class ScheduleService {
     return this.schedule;
   }
 
-  getObsSchedulebyTeacher(teacherId: number){
-    this.schedule = [];
-    const url = "/api/schedule?teacherId=";
-    return this.http.get<Schedule[]>(url+teacherId);
-  }
-
   getAll(){
     this.scheduleWithTime = [];
     const url = "/api/schedule/getAll";
